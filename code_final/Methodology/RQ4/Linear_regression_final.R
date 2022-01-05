@@ -47,7 +47,7 @@ coeftest(m1, vcov=vcovHC(m1))
 ##################
 # Follower
 ##################
-m2 = lm((log(y2+1)) ~ (year) +log(sales+1)+log(empl+1),df4)
+m2 = lm((log(y2+1)) ~ (year) +log(sales+1)+log(empl+1), df4)
 #summary(m2)
 summary(m2,type="text")
 # check for correlation between the coefficients
@@ -58,6 +58,7 @@ coeftest(m2, vcov=vcovHC(m2))
 
 #plot(df4$sales,df4$empl)
 #df4[df4$empl == max(df4$empl),]$company_names
+
 
 ########################################################################
 # Closeness
@@ -183,6 +184,7 @@ df4 = df3[!is.na(df3$empl),]
 m1 = lm((log(y1+1)) ~ (year)+(log(sales+1))+(log(empl+1)), df4)
 #summary(m1)
 stargazer(m1,type="text")
+summary(m1)
 vif(m1)
 coeftest(m1, vcov=vcovHC(m1))
 ##################
@@ -191,11 +193,14 @@ coeftest(m1, vcov=vcovHC(m1))
 m2 = lm((log(y2+1)) ~ (year) +log(sales+1)+log(empl+1),df4)
 #summary(m2)
 summary(m2,type="text")
+stargazer(m2, type='text')
 # check for correlation between the coefficients
 vif(m2)
 # calculate robust standart errors
 coeftest(m1, vcov=vcovHC(m1))
 coeftest(m2, vcov=vcovHC(m2))
+
+
 
 
 

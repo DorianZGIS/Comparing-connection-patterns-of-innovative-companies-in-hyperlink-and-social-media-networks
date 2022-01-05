@@ -7,6 +7,7 @@ library(stargazer)
 library(car)
 library(lmtest)
 library(sandwich)
+library(ggplot2)
 
 norm <- function(vec){
   maxx = max(vec)
@@ -31,7 +32,6 @@ close = read_csv('closeness.csv')
 betw = read_csv('betweenness.csv')
 geo = read_csv('mean_geographical_proximity.csv')
 cog = read_csv('cognitive_proximity_numeric.csv')
-
 
 ########################################################################
 # Degree
@@ -179,7 +179,7 @@ start = 0.2
 
 target <- company_data$company_names
 df = cog
-cog1= df[match(target, df$nodes),]
+cog1 = df[match(target, df$nodes),]
 company_data[company_data$company_names != cog1$nodes,]
 
 company_data$y1 = ((cog1$cog_proxi_h))
@@ -208,6 +208,7 @@ ggplot( aes(y1,y2, color=factor(category)),data=company_data)+geom_point()+
 
 logit_m1 = glm(category~year+log(sales+1)+log(empl+1), family = 'binomial', data = company_data)
 stargazer(logit_m1, type='text')
+summary(logit_m1)
 vif(logit_m1)
 coeftest(logit_m1, vcov=vcovHC(logit_m1))
 
